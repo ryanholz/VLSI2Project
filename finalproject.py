@@ -4,8 +4,15 @@ import threading
 
 # Function that outputs a string
 def print_str(fileName, threadNum):
-	print threadNum, ':', fileName, '\n'
-	print 'End of thread\n'
+	# Open a file and write to it
+	wrapper = open(fileName, "wb")
+
+	# Print to file then output closed thread notification
+	wrapper.write('{0}: {1}\n'.format(threadNum, fileName))
+	print 'End of thread ', threadNum, '\n'
+	
+	# Close file after finished
+	wrapper.close()
 
 # Read command line inputs
 t = []
