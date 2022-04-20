@@ -1,3 +1,13 @@
+# VLSI 2 Final Project
+# Project: 6 - Design Automation 1
+#-------------------------------------------
+# Group 2 Members:
+# - Daniyal Tahsildar
+# - Rutvik Desai
+# - Ryan Holzhousen
+# - Kevin Ferreira
+#-------------------------------------------
+
 #!/usr/bin/python
 import sys
 import threading
@@ -6,15 +16,19 @@ import threading
 def print_str(fileName, threadNum):
 	# Open verilog file to read and create a new file and write to it
 	wrapper = open('wrapper_{0}'.format(fileName), "wb")
-	socFile = open(fileName, "rb")
+	#socFile = open(fileName, "rb")
+
+	# TODO:
+	# Continue to implement once parser is completed
 
 	# Print to file then output closed thread notification
+	wrapper.write('/*\n* Wrapper code generated using finalproject.py\n*/\n')
 	wrapper.write('{0}: {1}\n'.format(threadNum, fileName))
 	print 'End of thread ', threadNum, '\n'
 	
 	# Close files after finished
 	wrapper.close()
-	socFile.close()
+	#socFile.close()
 
 # Read command line inputs
 t = []
