@@ -2,7 +2,9 @@ def nextWord(target, source):
     for i, w in enumerate(source):
         if w == target:
             return str(source[i+1])
-            
+
+def findModule(fileName)
+
 def findInputs(fileName):
     inputList = []
     for line in fileName:
