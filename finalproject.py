@@ -11,6 +11,8 @@
 #!/usr/bin/python
 import sys
 import threading
+# TODO: Uncomment once file is working
+#import InputOutputFinger
 
 # Function that outputs a string
 def print_str(fileName, threadNum):
@@ -21,7 +23,7 @@ def print_str(fileName, threadNum):
 	# TODO:
 	# Continue to implement once parser is completed
 
-	# Print to file then output closed thread notification
+	# Print to file then print end of thread notification
 	wrapper.write('/*\n* Wrapper code generated using finalproject.py\n*/\n')
 	wrapper.write('{0}: {1}\n'.format(threadNum, fileName))
 	print 'End of thread ', threadNum, '\n'
@@ -30,7 +32,7 @@ def print_str(fileName, threadNum):
 	wrapper.close()
 	#socFile.close()
 
-# Read command line inputs
+# Creating array to hold all the thread data
 t = []
 
 # Creating threads 
