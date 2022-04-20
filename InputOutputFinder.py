@@ -4,6 +4,31 @@ def nextWord(target, source):
             return str(source[i+1])
 
 def findModule(fileName)
+moduleName = []
+    for line in fileName:
+        if 'module' in line:
+            theLine = line.split()
+            indexComment = 999999;
+            index = 0
+            for w in theLine:
+                index += 1
+                if w == 'module':
+                    indexTarget = index
+                if w == '//':
+                    indexComment = index
+            if indexTarget < indexComment:
+                string2 = nextWord('module', theLine)
+                if string2 != None:
+                    try:
+                        string3 = nextWord(string2, theLine)
+                        if string3[-1] == ',':
+                            string3 = string3[:-1]
+                        moduleName.append(string2 + ' ' + string3)
+                    except:
+                        if string2[-1] == ',':
+                            string2 = string2[:-1]
+                        moduleName.append(string2)
+    return moduleName
 
 def findInputs(fileName):
     inputList = []
