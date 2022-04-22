@@ -18,13 +18,13 @@ def findInputs(fileName):
     for line in contents: # For every line in the file
         if 'Input:' in line: # If the word 'input' appears in the line
             theLine = contents[index].split() # Split the line into an array of words
-            inputName = nextWord('Input:', theLine)
-            if 'Width:' in contents[index + 1]:
-                upperBit = nextWord('IntConst:', contents[index+2].split())
-                lowerBit = nextWord('IntConst:', contents[index+3].split())
-                inputList.append('[' + upperBit + ':' + lowerBit + '] ' + inputName[:-1])
+            inputName = nextWord('Input:', theLine) # Find the input name
+            if 'Width:' in contents[index + 1]: # Check if input contains multiple bits
+                upperBit = nextWord('IntConst:', contents[index+2].split()) # Find upper bit
+                lowerBit = nextWord('IntConst:', contents[index+3].split()) # Find lower bit
+                inputList.append('[' + upperBit + ':' + lowerBit + '] ' + inputName[:-1]) # Add info to array
             else:
-                inputList.append(inputName[:-1])
+                inputList.append(inputName[:-1]) # Add info to array
         index += 1
     return inputList
 
@@ -35,13 +35,13 @@ def findOutputs(fileName):
     for line in contents: # For every line in the file
         if 'Output:' in line: # If the word 'input' appears in the line
             theLine = contents[index].split() # Split the line into an array of words
-            outputName = nextWord('Output:', theLine)
-            if 'Width:' in contents[index + 1]:
-                upperBit = nextWord('IntConst:', contents[index+2].split())
-                lowerBit = nextWord('IntConst:', contents[index+3].split())
-                outputList.append('[' + upperBit + ':' + lowerBit + '] ' + outputName[:-1])
+            outputName = nextWord('Output:', theLine) # Find output name
+            if 'Width:' in contents[index + 1]: # Check if input contains multiple bits
+                upperBit = nextWord('IntConst:', contents[index+2].split()) # Find upper bit
+                lowerBit = nextWord('IntConst:', contents[index+3].split()) # Find lower bit
+                outputList.append('[' + upperBit + ':' + lowerBit + '] ' + outputName[:-1]) # Add info to array
             else:
-                outputList.append(outputName[:-1])
+                outputList.append(outputName[:-1]) # Add info to array
         index += 1
     return outputList
 
