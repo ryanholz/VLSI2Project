@@ -32,7 +32,7 @@ def print_str(fileName, threadNum):
 	outputList = ivr.findOutputs(ivOutFile)
 	
 	# Generate comments at the beginning of file
-	wrapper.write('/*\n* Wrapper code generated using finalproject.py\n')
+	wrapper.write('/*\n* Wrapper code generated using finalproject.py\n*\n')
 	wrapper.write('* Module name: {0}\n'.format(moduleName))
 	wrapper.write('* Inputs: {0}\n'.format(inputList))
 	wrapper.write('* Outputs: {0}\n*\n'.format(outputList))
@@ -78,9 +78,17 @@ def print_str(fileName, threadNum):
 		else:
 			wrapper.write('output {0};\n'.format(outputList[i]))
 		i += 1
+	
+	# TODO
+	# Module instantiation
+	
 	# Close files after finished
 	wrapper.close()
 	ivOutFile.close()
+
+# If no files are given then output an error message
+print 'ERROR: No files provided.\nPlease try again.\n'
+sys.exit()
 
 # Creating array to hold all the thread data
 t = []
@@ -97,4 +105,5 @@ for i in range(0, len(sys.argv) - 1):
 for i in range(1, len(sys.argv) - 1):
 	t[i].join();
 
+# Final Confirmation message
 print 'Wrapper Generation complete!\n'
