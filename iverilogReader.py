@@ -8,7 +8,7 @@ def findModule(fileName) :
     for line in fileName: # For every line in the file
         if 'ModuleDef:' in line: # If the word 'module' appears in the line
             theLine = line.split() # Split the line into an array of words
-            moduleName = nextWord('ModuleDef:', theLine)
+            moduleName = nextWord('ModuleDef:', theLine) # Find module name
     return moduleName
 
 def findInputs(fileName):
