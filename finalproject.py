@@ -73,10 +73,10 @@ def print_str(fileName, threadNum):
 	i = 0
 	while(i < len(outputList)):
 		if '[' in outputList[i]:
-			wrapper.write('output {0}{1}\n'.format(outputList[i], outputList[i+1]))
+			wrapper.write('output {0}{1};\n'.format(outputList[i], outputList[i+1]))
 			i += 1
 		else:
-			wrapper.write('output {0}\n'.format(outputList[i]))
+			wrapper.write('output {0};\n'.format(outputList[i]))
 		i += 1
 	# Close files after finished
 	wrapper.close()

@@ -23,7 +23,7 @@ def findInputs(fileName):
                 upperBit = nextWord('IntConst:', contents[index+2].split()) # Find upper bit
                 lowerBit = nextWord('IntConst:', contents[index+3].split()) # Find lower bit
                 inputList.append('[' + upperBit + ':' + lowerBit + '] ')# + inputName[:-1]) # Add info to array
-		inputList.append(inputName)
+		inputList.append(inputName[:-1])
             else:
                 inputList.append(inputName[:-1]) # Add info to array
         index += 1
