@@ -10,8 +10,8 @@
 
 #!/usr/bin/python
 import sys
+import os
 import threading
-# TODO: Uncomment once file is working
 import iverilogReader as ivr
 
 # Function that outputs a string
@@ -87,8 +87,9 @@ def print_str(fileName, threadNum):
 	ivOutFile.close()
 
 # If no files are given then output an error message
-print 'ERROR: No files provided.\nPlease try again.\n'
-sys.exit()
+if len(sys.argv) < 2:
+	print 'ERROR: No files provided.\nPlease try again.\n'
+	sys.exit()
 
 # Creating array to hold all the thread data
 t = []
@@ -104,6 +105,10 @@ for i in range(0, len(sys.argv) - 1):
 # Wait for each thread to finish executing
 for i in range(1, len(sys.argv) - 1):
 	t[i].join();
+
+# TODO
+# iverilog command using the syntax below
+os.system("echo Hello")
 
 # Final Confirmation message
 print 'Wrapper Generation complete!\n'
