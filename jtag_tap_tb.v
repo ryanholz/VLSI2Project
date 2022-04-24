@@ -10,7 +10,7 @@ module jtag_tap_tb ();
 
 	/* Inputs and outputs of the jtag_tap.v file */
 	reg TCK, TMS, TDI, TRST;
-	reg [WIDTH-1:0] socOutput
+	reg [WIDTH-1:0] socOutput;
 
 	wire TDO, socCLK, socRST, socTestSel;
 
@@ -35,7 +35,7 @@ begin
 	TMS <= 1;
 	socOutput <= 212;
 	#10;
-	tMS <= 0;
+	TMS <= 0;
 	#100;
 
 	$stop;
