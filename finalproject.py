@@ -22,6 +22,9 @@ def print_str(fileName, threadNum):
     # Read Module name and store in variable
     pvOut = pvr.runPyVerilog(fileName)
     moduleName = pvr.findModule(pvOut)
+    
+    # Read parameters and store in variable
+    parameterList = pvr.findParameters(pvOut)
 
     # Read input ports and store in variable
     # ivOutFile = open(fileName, "r")
@@ -39,6 +42,7 @@ def print_str(fileName, threadNum):
     # Generate comments at the beginning of file
     wrapper.write('/*\n* Wrapper code generated using finalproject.py\n*\n')
     wrapper.write('* Module name: {0}\n'.format(moduleName))
+    wrapper.write('* Parameters: {0}\n'.format(parameterList))
     wrapper.write('* Inputs: {0}\n'.format(inputList))
     wrapper.write('* Outputs: {0}\n*\n'.format(outputList))
     wrapper.write('* Generate by thread {0}. From file {1}\n'.format(threadNum, fileName))
@@ -61,6 +65,13 @@ def print_str(fileName, threadNum):
             if i < len(outputList) - 1:
                 wrapper.write(', ')
     wrapper.write(')\n\n')
+    
+    # Declare parameters
+    wrapper.write('/*\n* Parameters\n*/\n')
+    i = 0
+    while(i < len(parameterList)):
+        wrapper.write('localparam {0};\n'.format(parameterList[i]))
+        i += 1
 
     # Declare input signals
     wrapper.write('/*\n* Input Signals\n*/\n')
