@@ -23,6 +23,15 @@ def runPyVerilog(fileName):
             word = ''
     return result
 
+def findParameters(code):
+    parameterList = [] # Initialize array of inputs
+    index = 0
+    for word in code: # For every line in the file
+        if word == '\nparameter': # If the word 'input' appears in the line
+            parameterList.append(code[index + 1] + " = " + code[index + 3][:-1])
+        index += 1
+    return parameterList
+
 def findModule(code) :
     index = 0
     for word in code: # For every line in the file
