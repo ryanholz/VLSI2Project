@@ -4,7 +4,7 @@
  * and shifts it to a single output
  */
 
-module shift_register #(parameter LENGTH = 32) (clk, rst, socOutput, load, jtagOutput)
+module shift_register #(parameter LENGTH = 32) (clk, rst, socOutput, load, jtagOutput);
 
 	input clk, rst, load;
 	input [LENGTH-1:0] socOutput;
@@ -25,11 +25,11 @@ begin
 		socData <= socOutput;
 	/* If no reset or load then shift conents */
 	else
-		socData <= socData << 1;
+		socData <= socData >> 1;
 
 end
 
 /* Concurrent statement assigning output */
-jtagOutput <= socData[0];
+assign jtagOutput = socData[0];
 
 endmodule
