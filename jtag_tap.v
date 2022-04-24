@@ -9,13 +9,15 @@
  * - TRST: Test Reset. Optional reset pin.
  *
  * Module Description
- * Simple JTAG TAP meant to run two different test patterns
+ * Very simple JTAG TAP meant to run two different test patterns
  * on an SoC module. Also integrated is a shift register that
  * will shift the output to the TDO pin.
  *
  * Module port description:
- * TCK, TMS, TDI, TRST, TDO
+ * TCK, TDI, TRST, TDO
  * 	Standard JTAG ports.
+ * TMS
+ * 	Used to load data into shift register, which will get shifted out
  * socOutput
  * 	Output of SoC that feeds into shift register and gets shifted
  * 	out to TDO pin.
@@ -38,9 +40,9 @@ module jtag_tap #(parameter WIDTH = 32) (TCK, TMS, TDI, TDO, TRST, socCLK, socRS
 	output TDO, socCLK, socRST, socTestSel;
 
 /* Signal assignments from JTAG interface to SoC module */
-socCLK <= TCK;
-socRST <= TRST;
-socTestSel < TDI;
+assign socCLK = TCK;
+assign socRST = TRST;
+assign socTestSel = TDI;
 
 /* Shift register instantiation */
 shift_register #(.LENGTH(WIDTH)) JTAG_OUT_SHFT_REG (.clk(TCK), .rst(TRST), .load(TMS), .socOutput(socOutput), .jtagOutput(TDO));
