@@ -8,10 +8,8 @@ def runPyVerilog(fileName):
     expected_ast = parser.parse(open(fileName).read())
     codegen = ASTCodeGenerator()
     expected_code = codegen.visit(expected_ast)
-    return expected_code
-
-def reformat(code):
-    new = code.replace(';', '; \n')
+    new = expected_code.replace(';', '; \n')
+    new = new.replace(',', ', \n')
     new = new.replace('  ', '')
     new = new.replace('\n\n\n', '\n')
     new = new.replace('\n\n', '\n')
@@ -25,7 +23,7 @@ def reformat(code):
             word = ''
     return result
 
-def moduleFinder(code) :
+def findModule(code) :
     index = 0
     for word in code: # For every line in the file
         if word == '\nmodule': # If the word 'module' appears in the line
@@ -40,36 +38,42 @@ def moduleFinder(code) :
         index += 1            
     return moduleName
 
-def inputFinder(code):
+def findInputs(code):
     inputList = [] # Initialize array of inputs
     index = 0
     for word in code: # For every line in the file
         if word == '\ninput': # If the word 'input' appears in the line
             if code[index + 1][0] == '[':
-                inputList.append(code[index + 1])
+                inputList.append(code[index + 1] + ' ')
                 inputList.append(code[index + 2][:-1])
             else:
                 inputList.append(code[index + 1][:-1])
         index += 1
     return inputList
 
-def outputFinder(code):
+def findOutputs(code):
     outputList = [] # Initialize array of inputs
     index = 0
     for word in code: # For every line in the file
         if word == '\noutput': # If the word 'input' appears in the line
-            if code[index + 1][0] == '[':
-                outputList.append(code[index + 1])
+            if code[index + 1] == 'reg':
+                if code[index + 2][0] == '[':
+                    outputList.append(code[index + 2] + ' ')
+                    outputList.append(code[index + 3][:-1])
+                else:
+                    outputList.append(code[index + 2][:-1])
+            elif code[index + 1][0] == '[':
+                outputList.append(code[index + 1] + ' ')
                 outputList.append(code[index + 2][:-1])
             else:
                 outputList.append(code[index + 1][:-1])
         index += 1
     return outputList
 
-pvOutput = runPyVerilog("uart_top.v")
-pvOutput = reformat(pvOutput)
+# pvOutput = runPyVerilog("uart_top.v")
+# pvOutput = reformat(pvOutput)
 # print(pvOutput)
-print("Module: {}".format(moduleFinder(pvOutput)))
-print("Inputs: {}".format(inputFinder(pvOutput)))
-print("Outputs: {}".format(outputFinder(pvOutput)))
-print("Done")
+# print("Module: {}".format(findModule(pvOutput)))
+# print("Inputs: {}".format(findInputs(pvOutput)))
+# print("Outputs: {}".format(findOutputs(pvOutput)))
+# print("Done")
