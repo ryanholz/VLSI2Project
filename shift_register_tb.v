@@ -6,22 +6,22 @@
 module shift_register_tb();
 
 	/* Parameter definition for shift register length */
-	localparam SHFT_LENGTH = 32;
+	localparam SHFT_LENGTH = 8; /* Testing 8-bits for simplicity */
 	
 	/* Input and output signals declared as regs or wires */
 	reg clk, rst, load;
-	reg [LENGTH-1:0] socOutput;
+	reg [SHFT_LENGTH-1:0] socOutput;
 
 	wire jtagOutput;
 
 /* Create instance of the shift register module to test */
-shift_register #(.LENGTH(SHFT_LENGTH)) SHFT_REG_UUT (.clk(clk), .rst(rst), .socOutput(socOutput), .jtagOutput(jtagOutput))
+shift_register #(.LENGTH(SHFT_LENGTH)) SHFT_REG_UUT (.clk(clk), .rst(rst), .load(load), .socOutput(socOutput), .jtagOutput(jtagOutput));
 
 /* Begin testing */
-intial
+initial
 begin
 	
-	/* Define initial clock state
+	/* Define initial clock state */
 	clk <= 0;
 	
 	/* Test for reset conditions */
@@ -41,6 +41,8 @@ begin
 	load <= 0;
 	socOutput <= 165;
 	#100;
+
+	$stop;
 
 end
 
