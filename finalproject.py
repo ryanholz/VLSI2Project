@@ -86,7 +86,7 @@ def print_str(fileName, threadNum):
     wrapper.write('reg [31:0] socOutput;\nreg socCLK;\nreg socRST;\nreg socTestSel;\n\n')
 
     # Instantiate modules
-    wrapper.write('jtag_tap #(.WIDTH(32)) JTAG_TAP (.TCK(TCK), .TMS(TMS), .TDI(TDI), .TRST(TRST), .socOutput(socOutput), .TDO(TDO), .socCLK(socCLK), .socRST(socRST)m .socTestSel(socTestSel));\n')
+    wrapper.write('jtag_tap #(.WIDTH(32)) JTAG_TAP (.TCK(TCK), .TMS(TMS), .TDI(TDI), .TRST(TRST), .socOutput(socOutput), .TDO(TDO), .socCLK(socCLK), .socRST(socRST)m .socTestSel(socTestSel));\n\n')
 
     wrapper.write('if (socTestSel == 0)\nbegin\n')
     wrapper.write('{0} #(.WIDTH(32)) ('.format(moduleName))
