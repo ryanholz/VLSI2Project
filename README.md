@@ -1,6 +1,7 @@
 # VLSI2Project
 
-Repository for WBSoc can be [found here](https://github.com/apdn/WBSoC)
+Repository for WBSoc can be [found here](https://github.com/apdn/WBSoC). 
+Note: The RTL in this repository has been included in our repo for convenience.
 
 Repository for Pyverilog library [found here](https://github.com/PyHDI/Pyverilog)
 
