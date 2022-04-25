@@ -10,7 +10,7 @@ pip install pyverilog==1.3.0
 If running on the ECE servers then nothing has to be done to run the code. It should work as is.
 
 To generate the wrapper files, input the following command into the terminal:
-python finalproject.py <verilog file 1> <verilog file 2> <verilog file 3> <verilog file x>
+python finalproject.py <verilog file 1> <verilog file 2> <verilog file 3> (any number of Verilog files)
 
 finalproject.py - The logic implemented in this file wraps the modules by integrating all the input and outputs fetched from the pyverilogReader file using Multithreading and command line Argument technique. The inputs passed into the final project script are simply the Verilog files that the user wants wrappers for.
 
