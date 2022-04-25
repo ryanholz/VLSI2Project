@@ -49,7 +49,7 @@ def print_str(fileName, threadNum):
     wrapper.write('*/\n')
 
     # Generate module definition
-    wrapper.write('module {0} ('.format(moduleName))
+    wrapper.write('module wrapper_{0} ('.format(moduleName))
     for i in range(0, len(inputList)):
         if '[' in inputList[i]:
             # Skip if data range is present
@@ -74,29 +74,38 @@ def print_str(fileName, threadNum):
         i += 1
 
     # Declare input signals
-    wrapper.write('/*\n* Input Signals\n*/\n')
-    i = 0
-    while(i < len(inputList)):
-        if '[' in inputList[i]:
-            wrapper.write('input {0}{1};\n'.format(inputList[i], inputList [i+1]))
-            i += 1
-        else:
-            wrapper.write('input {0};\n'.format(inputList[i]))
-        i += 1
+    wrapper.write('\n/*\n* Input Signals\n*/\n')
+    wrapper.write('input TCK, TDI, TMS, TRST;\n')
 
     # Declare output signals
-    wrapper.write('\n/*\n*Output Signals\n*/\n')
+    wrapper.write('\n/*\n* Output Signals\n*/\n')
+    wrapper.write('output TDO;\n')
+
+    # Declare other signals needed
+    wrapper.write('\n/* Additional Signals */\n')
+    wrapper.write('reg [31:0] socOutput;\nreg socCLK;\nreg socRST;\nreg socTestSel;\n\n')
+
+    # Instantiate modules
+    wrapper.write('jtag_tap #(.WIDTH(32)) JTAG_TAP (.TCK(TCK), .TMS(TMS), .TDI(TDI), .TRST(TRST), .socOutput(socOutput), .TDO(TDO), .socCLK(socCLK), .socRST(socRST)m .socTestSel(socTestSel));\n')
+
+    wrapper.write('{0} #(.WIDTH(32)) ('.format(moduleName))
     i = 0
-    while(i < len(outputList)):
-        if '[' in outputList[i]:
-            wrapper.write('output {0}{1};\n'.format(outputList[i], outputList[i+1]))
-            i += 1
+    while(i < len(inputList)):
+        if i != 0:
+            wrapper.write(', ')
+        if 'clk' in inputList[i]:
+            wrapper.write('.{0}(TCK)'.format(inputList[i]))
+        if 'dat_o' in inputList[i]:
+            wrapper.write('.{0}(socOutput)')
+        if 'rst' in inputList[i]:
+            wrapper.write('.{0}(TRST)')
+        if '[' in inputList[i]:
+            pass
         else:
-            wrapper.write('output {0};\n'.format(outputList[i]))
+            wrapper.write('.{0}(0)'.format(inputList[i]))
         i += 1
 
-    # TODO
-    # Module instantiation
+    wrapper.write(')')
 
     # Close files after finished
     wrapper.close()
@@ -105,6 +114,10 @@ def print_str(fileName, threadNum):
 if len(sys.argv) < 2:
     print ('ERROR: No files provided.\nPlease try again.\n')
     sys.exit()
+
+# Command to source the necessary files to use pyverilog on the ECE servers
+# Note: Comment out the line below if not on ECE servers
+os.system("source /usr/local/anaconda3/settings")
 
 # Creating array to hold all the thread data
 t = []
@@ -120,10 +133,6 @@ for i in range(0, len(sys.argv) - 1):
 # Wait for each thread to finish executing
 for i in range(1, len(sys.argv) - 1):
     t[i].join();
-
-# TODO
-# iverilog command using the syntax below
-os.system("echo Hello")
 
 # Final Confirmation message
 print ('Wrapper Generation complete!\n')
