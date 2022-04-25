@@ -6,6 +6,7 @@ Repository for Pyverilog library [found here](https://github.com/PyHDI/Pyverilog
 
 In order to run the necessary code, the Pyverilog library must be installed. This is done by running the terminal command:
 pip install pyverilog==1.3.0
+If running on the ECE servers then nothing has to be done to run the code. It should work as is.
 
 To generate the wrapper files, input the following command into the terminal:
 python finalproject.py <verilog file 1> <verilog file 2> <verilog file 3> <verilog file x>
