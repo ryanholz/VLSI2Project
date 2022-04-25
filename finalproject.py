@@ -122,7 +122,7 @@ def print_str(fileName, threadNum):
         if '[' in inputList[i]:
             pass
         else:
-            wrapper.write('.{0}(0)'.format(inputList[i]))
+            wrapper.write('.{0}(1)'.format(inputList[i]))
         i += 1
 
     wrapper.write(')\nend\n')
