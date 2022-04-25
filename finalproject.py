@@ -88,44 +88,44 @@ def print_str(fileName, threadNum):
     # Instantiate modules
     wrapper.write('jtag_tap #(.WIDTH(32)) JTAG_TAP (.TCK(TCK), .TMS(TMS), .TDI(TDI), .TRST(TRST), .socOutput(socOutput), .TDO(TDO), .socCLK(socCLK), .socRST(socRST)m .socTestSel(socTestSel));\n')
 
-    if socTestSel == 0:
-        wrapper.write('{0} #(.WIDTH(32)) ('.format(moduleName))
-        i = 0
-        while(i < len(inputList)):
-            if i != 0:
-                wrapper.write(', ')
-            if 'clk' in inputList[i]:
-                wrapper.write('.{0}(TCK)'.format(inputList[i]))
-            if 'dat_o' in inputList[i]:
-                wrapper.write('.{0}(socOutput)')
-            if 'rst' in inputList[i]:
-                wrapper.write('.{0}(TRST)')
-            if '[' in inputList[i]:
-                pass
-            else:
-                wrapper.write('.{0}(0)'.format(inputList[i]))
-            i += 1
+    wrapper.write('if (socTestSel == 0')
+    wrapper.write('{0} #(.WIDTH(32)) ('.format(moduleName))
+    i = 0
+    while(i < len(inputList)):
+        if i != 0:
+            wrapper.write(', ')
+        if 'clk' in inputList[i]:
+            wrapper.write('.{0}(TCK)'.format(inputList[i]))
+        if 'dat_o' in inputList[i]:
+            wrapper.write('.{0}(socOutput)')
+        if 'rst' in inputList[i]:
+            wrapper.write('.{0}(TRST)')
+        if '[' in inputList[i]:
+            pass
+        else:
+            wrapper.write('.{0}(0)'.format(inputList[i]))
+        i += 1
 
-        wrapper.write(')')
-    if socTestSel == 1:
-        wrapper.write('{0} #(.WIDTH(32)) ('.format(moduleName))
-        i = 0
-        while(i < len(inputList)):
-            if i != 0:
-                wrapper.write(', ')
-            if 'clk' in inputList[i]:
-                wrapper.write('.{0}(TCK)'.format(inputList[i]))
-            if 'dat_o' in inputList[i]:
-                wrapper.write('.{0}(socOutput)')
-            if 'rst' in inputList[i]:
-                wrapper.write('.{0}(TRST)')
-            if '[' in inputList[i]:
-                pass
-            else:
-                wrapper.write('.{0}(0)'.format(inputList[i]))
-            i += 1
+    wrapper.write(')\nend\n')
+    wrapper.write('if (socTestSel == 1')
+    wrapper.write('{0} #(.WIDTH(32)) ('.format(moduleName))
+    i = 0
+    while(i < len(inputList)):
+        if i != 0:
+            wrapper.write(', ')
+        if 'clk' in inputList[i]:
+            wrapper.write('.{0}(TCK)'.format(inputList[i]))
+        if 'dat_o' in inputList[i]:
+            wrapper.write('.{0}(socOutput)')
+        if 'rst' in inputList[i]:
+            wrapper.write('.{0}(TRST)')
+        if '[' in inputList[i]:
+            pass
+        else:
+            wrapper.write('.{0}(0)'.format(inputList[i]))
+        i += 1
 
-        wrapper.write(')')
+    wrapper.write(')\nend\n')
 
     # Close files after finished
     wrapper.close()
