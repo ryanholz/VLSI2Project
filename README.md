@@ -8,7 +8,7 @@ In order to run the necessary code, the Pyverilog library must be installed. Thi
 pip install pyverilog==1.3.0
 
 To generate the wrapper files, input the following command into the terminal:
-python finalproject.py <verilog file 1> <verilog file 2> <verilog file n>
+python finalproject.py <verilog file 1> <verilog file 2> <verilog file x>
 
 finalproject.py - The logic implemented in this file wraps the modules by integrating all the input and outputs fetched from the pyverilogReader file using Multithreading and command line Argument technique. The inputs passed into the final project script are simply the Verilog files that the user wants wrappers for.
 
